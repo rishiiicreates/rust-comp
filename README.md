@@ -1,34 +1,30 @@
-# rust-comp (writing a rust compiler from scratch because sanity was never an option T_T)
+# rust-comp (building a python compiler in rust from scratch because cpython wasn't fast enough T_T)
 
-welcome to my brain dump and ongoing struggle of building a rust compiler completely from scratch. yes, compiling rust using rust. fighting rustc's borrow checker while trying to build our own borrow checker is peak psychological damage, but we ball anyway (._.)
+welcome to my brain dump of building a python compiler from scratch using rust. yes, taking the friendliest, most dynamic scripting language in existence and compiling it with the most aggressive, borrow-checking systems language known to humanity. it is going exactly as chaotic as you would imagine (._.)
 
-## what's actually inside this mess?
-- **the lexer:** turning source code into tokens until an unclosed string literal sends the parser into an existential crisis :3
-- **the parser & ast:** converting flat tokens into recursive syntax trees while wrapping literally everything in `Box<T>` because `error[E0072]: recursive type has infinite size` humbled me at 3 am.
-- **type checking & semantics:** trying to enforce strict types and lifetime rules when i can barely enforce my own sleep schedule.
-- **the borrow checker:** the final boss. currently standing 10 feet away from it and pretending it doesn't see me. if you see lifetime logic in here, please say a prayer for it.
-- **codegen & backend:** spitting out bytecode / assembly and praying to the 16-byte stack alignment gods so macOS doesn't immediately segfault.
+## what's actually happening in this repo
+- **the indentation scanner:** python does not have cute curly braces. it has tabs, spaces, and vibes. our lexer has to manage an indent and dedent stack without having an emotional breakdown :3
+- **the parser & ast:** turning python statements, if blocks, while loops, and def function declarations into recursive syntax trees wrapped in `Box<T>` because rustc does not negotiate with infinite size types.
+- **the dynamic type system:** python variables can be an integer on line one and a string on line two. implementing dynamic pyvalue enums in rust while rustc screams for static types is peak comedy.
+- **the bytecode vm & backend:** compiling the AST down to clean bytecode instructions and running them on our own stack-based virtual machine.
 
-## current state of the chaos
-- **lexer:** working and vibing with keywords, numbers, strings, and operators
-- **parser:** parses basic let bindings, returns, and literals without catching fire
-- **borrow checker:** emotional damage pending
-- **codegen:** currently emitting pure hopes and prayers
+## current status of the chaos
+- **lexer & indent stack:** getting designed right now
+- **parser:** warming up brain cells
+- **runtime & pyvalues:** preparing for dynamic type madness
+- **bytecode vm:** emitting pure hopes and prayers
 
-# Note: This is not rustc. If rustc takes 3 seconds to compile, this thing might either finish in 2 milliseconds or summon an ancient demon that consumes all 16GB of unified memory behind my back.
+# Note: This is not CPython. If your python script crashes here, there is a solid chance my indent stack miscalculated two spaces at 3 AM.
 
 ## How to run (at your own risk)
 
 ```bash
-# run the built-in demo snippet
+# run the compiler
 cargo run
 
-# pass your own file if you're feeling brave
-cargo run -- path/to/test.rs
-
-# run the test suite (they actually pass right now, nobody breathe)
+# run tests
 cargo test
 ```
 
 ## Contributing
-if you spot an unwrap() that makes your heart sink, or my AST nodes give you second-hand embarrassment, please open a PR. or just roast my terrible logic in the issues tab, i completely deserve it. virtual chai and good vibes guaranteed T_T
+if you spot a bug in my indent scanner, or my AST nodes give you second-hand embarrassment, please open a PR. or roast my terrible logic in the issues tab, i completely deserve it. virtual chai and good vibes guaranteed T_T
