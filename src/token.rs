@@ -4,6 +4,7 @@ pub enum TokenKind{
     Def, 
     Return,
     If,
+    Elif,
     Else,
     While,
     For,
